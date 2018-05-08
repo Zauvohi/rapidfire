@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'pg'
-gem 'cocoon', '~> 1.2.11'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

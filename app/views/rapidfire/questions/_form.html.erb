@@ -19,11 +19,8 @@
     <%= f.text_field :question_text %>
   </div>
 
-  <div id= "child-questions-form" class="form-group" style="display: <%= 'none' if form.question_type == 'RadioGrid'%>">
-    <%= f.fields_for :child_question do |cq| %>
-      <%= render 'child_form', f: cq %>
-    <% end %>
-    <%= link_to_add_association 'Add Another Question', f, :child_question, partial: 'child_form', class: 'btn btn-primary'%>
+  <div id= "child-questions-form" class="form-group">
+    <%= render partial: 'child_form', locals: { form: f }%>
   </div>
 
   <div class="form-group">

@@ -1,0 +1,19 @@
+<% if @child_questions.nil? %>
+  <% 10.times do |i| %>
+    <%= form.fields_for :child_questions do |fcq| %>
+      <div class="form-group">
+        <%= fcq.label "question_text_#{i}".to_sym, "Nested question ##{i + 1}" %>
+        <%= fcq.text_field "question_text_#{i}".to_sym %>
+      </div>
+    <% end %>
+  <% end %>
+  <% else %>
+  <% @child_questions.each_with_index do |cq, i| %>
+    <%= form.fields_for :child_questions do |fcq| %>
+      <div class="form-group">
+        <%= fcq.label "question_text_#{cq.id}", "Nested question ##{i + 1}" %>
+        <%= fcq.text_field "question_text_#{cq.id}", value: cq.question_text %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

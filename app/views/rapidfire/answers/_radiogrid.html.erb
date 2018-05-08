@@ -1,0 +1,16 @@
+<%= render partial: "rapidfire/answers/errors", locals: {answer: answer} %>
+
+<div class="form-group">
+  <%= f.label :answer_text, answer.question.question_text %>
+  <%- answer.question.child_questions.each_with_index do |question, index| %>
+    <%- question.options.each_with_index do |option, index| %>
+      <div class="form-check form-check-inline">
+        <%= f.label "answer_text_#{index}" do %>
+        <%= f.radio_button :answer_text, option, id: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}" %>
+        <%= option %>
+    <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

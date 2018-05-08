@@ -9,6 +9,7 @@ module Rapidfire
        Rapidfire::Questions::Radio,
        Rapidfire::Questions::Select,
        Rapidfire::Questions::Short,
+       Rapidfire::Questions::RadioGrid,
       ]
 
     QUESTION_TYPES = AVAILABLE_QUESTIONS.inject({}) do |result, question|
@@ -20,7 +21,7 @@ module Rapidfire
     attr_accessor :survey, :question, :default_text, :placeholder,
       :type, :question_text, :position, :answer_options, :answer_presence,
       :answer_minimum_length, :answer_maximum_length,
-      :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to
+      :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :child_questions
 
     delegate :valid?, :errors, :to => :question
 
@@ -44,10 +45,13 @@ module Rapidfire
         return false
       end
 
-      @question = klass.create(to_question_params)
+      @question = klass.new(to_question_params)
+      @question.prepare_child_questions(child_questions) if @question.has_nested?
+      @question.save
     end
 
     def update_question
+      @question.update_child_questions(child_questions) if @question.has_nested?
       @question.update_attributes(to_question_params)
     end
 
