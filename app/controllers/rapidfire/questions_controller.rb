@@ -26,6 +26,7 @@ module Rapidfire
 
     def edit
       @question_form = QuestionForm.new(:question => @question)
+      @child_questions = @question.child_questions if @question.has_nested?
     end
 
     def update

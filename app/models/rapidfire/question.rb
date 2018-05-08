@@ -5,7 +5,8 @@ module Rapidfire
 
     default_scope { order(:position) }
 
-    validates :survey, :question_text, :presence => true
+    validates :question_text, :presence => true
+    validates :survey, :presence => true, unless: :in_type
     serialize :validation_rules
 
     if Rails::VERSION::MAJOR == 3
@@ -39,6 +40,16 @@ module Rapidfire
 
         answer.validates_length_of :answer_text, min_max
       end
+    end
+
+    def has_nested?
+      false
+    end
+
+    private
+
+    def in_type
+      %w[Rapidfire::Questions::Radio].include?(self.type)
     end
   end
 end

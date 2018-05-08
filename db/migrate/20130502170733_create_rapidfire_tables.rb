@@ -22,10 +22,14 @@ class CreateRapidfireTables < base
       t.integer :position
       t.text :answer_options
       t.text :validation_rules
+      t.integer :parent_question_id
+      t.integer :child_question_id
 
       t.timestamps
     end
     add_index :rapidfire_questions, :survey_id if Rails::VERSION::MAJOR != 5
+    add_index :rapidfire_questions, :parent_question_id
+    add_index :rapidfire_questions, :child_question_id
 
     create_table :rapidfire_attempts do |t|
       t.references :survey
