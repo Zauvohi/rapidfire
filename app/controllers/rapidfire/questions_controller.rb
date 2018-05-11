@@ -3,11 +3,13 @@ module Rapidfire
     if Rails::VERSION::MAJOR ==  5
       before_action :authenticate_administrator!
       before_action :find_survey!
-      before_action :find_question!, :only => [:edit, :update, :destroy]
+      before_action :find_question!, :only => [:edit, :update, :destroy,
+                                               :values, :conditional]
     else
       before_filter :authenticate_administrator!
       before_filter :find_survey!
-      before_filter :find_question!, :only => [:edit, :update, :destroy]
+      before_filter :find_question!, :only => [:edit, :update, :destroy,
+                                               :values, :conditional]
     end
 
     def index
@@ -40,6 +42,20 @@ module Rapidfire
         format.html { redirect_to index_location }
         format.js
       end
+    end
+
+    def values
+      return render json: {message:'This Question not contains any options',
+                           status: 400 } unless @question.answer_options?
+
+      render json: {values: @question.options, status: 200 }
+    end
+
+    def conditional
+      return render json: {message:'This Question not contains any conditional',
+                           status: 400 } unless @question.conditionals
+
+      render json: @question.conditionals
     end
 
     private

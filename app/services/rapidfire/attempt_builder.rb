@@ -19,7 +19,7 @@ module Rapidfire
           # in case of checkboxes, values are submitted as an array of
           # strings. we will store answers as one big string separated
           # by delimiter.
-          text = text.values if text.is_a?(Hash)
+          text = text.values unless text.is_a?(String)
           answer.answer_text =
             if text.is_a?(Array)
               strip_checkbox_answers(text).join(Rapidfire.answers_delimiter)
@@ -28,7 +28,6 @@ module Rapidfire
             end
         end
       end
-
       @attempt.save!(options)
     end
 

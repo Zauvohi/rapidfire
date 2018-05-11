@@ -8,4 +8,8 @@ en:
       new: "New Question"
       question: "Question"
       back: "Back to surveys"
-
+    conditionals:
+      header: "Conditionals"
+      new: "New Conditional"
+      question: "Conditional"
+      back: "Back to surveys"

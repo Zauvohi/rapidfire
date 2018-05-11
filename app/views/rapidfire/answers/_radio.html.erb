@@ -1,6 +1,6 @@
 <%= render partial: "rapidfire/answers/errors", locals: {answer: answer} %>
 
-<div class="form-group">
+<div <%= set_attributes(answer.question) %> >
   <%= f.label :answer_text, answer.question.question_text %>
   <%- answer.question.options.each_with_index do |option, index| %>
     <span class="form-group sub">
