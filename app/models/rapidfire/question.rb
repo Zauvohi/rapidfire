@@ -2,6 +2,9 @@ module Rapidfire
   class Question < ActiveRecord::Base
     belongs_to :survey, :inverse_of => :questions
     has_many   :answers
+    has_many   :conditionals, dependent: :destroy
+    has_many   :question_groups, through: :question_groups_questions, inverse_of: :questions
+    has_many   :question_groups_questions, dependent: :destroy, inverse_of: :question
 
     default_scope { order(:position) }
 
@@ -44,6 +47,12 @@ module Rapidfire
 
     def has_nested?
       false
+    end
+
+    def self.available_for_conditionals
+      self.where(type: %w[Rapidfire::Questions::Checkbox
+                          Rapidfire::Questions::Select
+                          Rapidfire::Questions::Radio])
     end
 
     private

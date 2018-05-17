@@ -1,0 +1,13 @@
+<h3>Edit Conditional</h3>
+<%- if @conditional.errors.any? %>
+  <ul>
+    <%- @conditional.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @conditional, url: survey_conditional_path do |f| %>
+  <%= render partial: 'form', locals: {f: f} %>
+  <%= f.submit %>
+<% end %>

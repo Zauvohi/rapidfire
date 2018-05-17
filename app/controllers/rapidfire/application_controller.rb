@@ -12,6 +12,10 @@ module Rapidfire
       end
     end
 
+    def rapidfire
+      self
+    end
+
     # Override prefixes to consider the scoped.
     # for method current_user
     def scoped

@@ -1,3 +1,4 @@
+# This migration comes from rapidfire (originally 20130502170733)
 if Rails::VERSION::MAJOR == 5
   version = [Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join('.').to_f
   base = ActiveRecord::Migration[version]
@@ -47,6 +48,27 @@ class CreateRapidfireTables < base
 
       t.timestamps
     end
+
+    create_table :rapidfire_conditionals do |t|
+      t.references :survey, index: true
+      t.references :question, index: true
+      t.integer    :condition
+      t.string     :value
+      t.integer    :action
+
+      t.timestamps
+    end
+
+    create_table :rapidfire_question_groups do |t|
+      t.references :conditional, index: true
+      t.string :title
+      t.timestamps
+    end
+    create_table :rapidfire_question_groups_questions do |t|
+      t.references :question_group, index: true
+      t.references :question, index: true
+    end
+
     if Rails::VERSION::MAJOR != 5
       add_index :rapidfire_answers, :attempt_id
       add_index :rapidfire_answers, :question_id

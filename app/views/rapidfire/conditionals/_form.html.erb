@@ -1,0 +1,34 @@
+<div >
+  <%= f.hidden_field(:survey_id ) %>
+  <p>If</p>
+</div>
+
+<div>
+  <%= f.select(:question_id, collection_parent_questions(f.object.question_id), { include_blank: true }, class: 'fn-parent-question') %>
+</div>
+
+<div>
+  <%= f.select(:condition, collection_conditions(f.object.condition), { include_blank: true }) %>
+</div>
+
+<div>
+  <%= f.select(:value, collection_values, { include_blank: true }) %>
+</div>
+
+<p>Then</p>
+
+<div>
+  <%= f.select(:action, collection_actions(f.object.action), { include_blank: true }) %>
+</div>
+
+<%= f.fields_for(:question_group) do |question_group| %>
+  <div>
+    <%= question_group.select(:questions, collection_questions(f.object.questions), { include_blank: true }, {multiple: true, class: "fn-questions"}) %>
+  </div>
+<% end %>
+<h4> Questions </h4>
+<ul>
+  <% f.object.questions.each do | question | %>
+    <li> <%= question.question_text %> </li>
+  <% end %>
+</ul>

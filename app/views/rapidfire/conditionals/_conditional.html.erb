@@ -1,0 +1,10 @@
+
+<tr id="conditional_<%= conditional.id %>">
+  <td><%= conditional.id %></td>
+  <td>
+    <ul class="horizontal-list">
+      <li><%= link_to "Edit", edit_survey_conditional_path(@survey, conditional)%></li>
+      <li><%= link_to 'Delete', survey_conditional_path(@survey, conditional), method: :delete, data: { confirm: 'Are you sure you want to delete this conditional?' } %></li>
+    </ul>
+  </td>
+</tr>
