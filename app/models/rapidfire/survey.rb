@@ -3,6 +3,7 @@ module Rapidfire
     has_many  :questions
     validates :name, :presence => true
     has_many :conditionals, dependent: :destroy
+    has_many :attempts, inverse_of: :survey
 
     if Rails::VERSION::MAJOR == 3
       attr_accessible :name, :introduction
