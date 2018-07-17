@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('ready', function() {
   $('.fn-question-attempt input, .fn-question-attempt select').on('change',function(){
     getConditional(this);
   });

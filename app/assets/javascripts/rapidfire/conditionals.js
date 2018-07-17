@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('ready', function() {
   parentQuestion = $('.fn-parent-question');
   surverId = $('#conditional_survey_id').val();
   valuesSelect = $('#conditional_value');
